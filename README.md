@@ -578,4 +578,391 @@ Update the WAS path in warbuild.sh script  to take the backup of existing war fi
 
 Change WAS9 path of for loop while start JVM’s with help of for loop. 
 
+
+
+
+
+
+
+
+
+
+
+Steps :
+
+WAS9 software available path: 
+
+ 
+
+ 
+
+ 
+
+IIM software available path: 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Make sure that /WAS9 file system owner is wasadmin and it has 755 permissions. 
+
+ 
+
+ A screenshot of a computer
+
+Description automatically generated 
+
+ 
+
+Make sure that umask is 022. 
+
+Create a directory with name “WAS_SOFTWARES” under /WAS9/ 
+
+ 
+
+A screenshot of a computer
+
+Description automatically generated 
+
+ 
+
+Copy the softwares from /sysmonlogs/Appteam/WAS_9/ to /WAS9/WAS_SOFTWARES/ 
+
+Graphical user interface
+
+Description automatically generated 
+
+ 
+
+IIM Installation: 
+
+ 
+
+Take a backup of install.xml file 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Edit install.xml using vi editor and add the below content in install.xml 
+
+<profile kind='self' installLocation='/WAS9/IBM/InstallationManager' id='IBM Installation Manager'> 
+
+<data key='eclipseLocation' value='/WAS9/IBM'/> 
+
+</profile> 
+
+<server> 
+
+<repository location='/WAS9/WAS_SOFTWARES/IM'/> 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Execute the below command from IM software available path: 
+
+ 
+
+./userinstc -acceptLicense -dL /WAS9/IBM/IMDataAgent 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the IIM version: 
+
+ 
+
+A screenshot of a computer
+
+Description automatically generated 
+
+ 
+
+WAS9 Installation: 
+
+ 
+
+Check the WAS9 and java8 package names. 
+
+ 
+
+Graphical user interface, text
+
+Description automatically generated 
+
+ 
+
+Run the below command to install WAS9 and IBM Java8: 
+
+   
+
+./imcl install com.ibm.websphere.ND.v90_9.0.0.20160526_1854 com.ibm.java.jdk.v8_8.0.3000.20160623_1418 -repositories "/WAS9/WAS_SOFTWARES/WAS9","/WAS9/WAS_SOFTWARES/java8/" -installationDirectory "/WAS9/IBM/WebSphere/AppServer" -sharedResourcesDirectory "/WAS9/IBM/IMShared" -acceptLicense -sP 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the version of installed IBM WAS9 software: 
+
+ 
+
+Graphical user interface, text, application, chat or text message
+
+Description automatically generated 
+
+Text
+
+Description automatically generated 
+
+ 
+
+WAS 9.0.5.6 Installation: 
+
+ 
+
+Execute the below command to get the WAS 9.0.5.6 package name. 
+
+ 
+
+./imcl listAvailablePackages -repositories /WAS9/WAS_SOFTWARES/Fixpack_WAS_IHS_9.0.5.6/WAS/ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Install WAS 9.0.5.6 software by executing the below command: 
+
+ 
+
+./imcl install com.ibm.websphere.ND.v90_9.0.5006.20201109_1605 -repositories /WAS9/WAS_SOFTWARES/Fixpack_WAS_IHS_9.0.5.6/WAS/ -installationDirectory /WAS9/IBM/WebSphere/AppServer -sharedResourcesDirectory /WAS9/IBM/IMShared -acceptLicense -sP 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the version of WAS. 
+
+ 
+
+Graphical user interface, text, chat or text message
+
+Description automatically generated 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+IHS9 Installation: 
+
+ 
+
+Make sure that the softwares are copied to /IHS9/WAS_SOFTWARES/ 
+
+Make sure that IIM is installed. 
+
+Get the package name of IHS by executing the below command: 
+
+Graphical user interface, text
+
+Description automatically generated 
+
+ 
+
+Install IHS9 by executing the below command: 
+
+ 
+
+./imcl install com.ibm.websphere.IHS.v90_9.0.0.20160526_1854 com.ibm.java.jdk.v8_8.0.3000.20160623_1418 -repositories "/IHS9/WAS_SOFTWARES/IHS/repository.config","/IHS9/WAS_SOFTWARES/java8/" -installationDirectory /IHS9/IBM/HTTPServer -sharedResourcesDirectory "/IHS9/IBM/IMShared" -properties user.ihs.allowNonRootSilentInstall=true,user.ihs.httpPort=9070 -acceptLicense -showProgress -log /IHS9/IHS9Install.log 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the version of IBM HTTP Server: 
+
+ 
+
+Graphical user interface, text, application
+
+Description automatically generated 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+IHS 9.0.5.6 Fixpack installation: 
+
+ 
+
+Get the HIS Fixpack 9.0.5.6 package name: 
+
+ 
+
+A screenshot of a computer
+
+Description automatically generated 
+
+Install IBM HTTP Server 9.0.5.6 fixpack: 
+
+./imcl install com.ibm.websphere.IHS.v90_9.0.5006.20201109_1605 -repositories /IHS9/WAS_SOFTWARES/Fixpack_WAS_IHS_9.0.5.6/IHS/repository.config -installationDirectory /IHS9/IBM/HTTPServer -sharedResourcesDirectory /IHS9/IBM/IMShared/ -acceptLicense -showProgress 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the version of IBM HTTP Server: 
+
+ 
+
+Graphical user interface, text
+
+Description automatically generated 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+IBM Plugins 9 installation: 
+
+ 
+
+Make sure that IIM and IBM HTTP Server is installed. 
+
+Get the IBM Plugins package name: 
+
+ 
+
+ 
+
+Install the IBM Plugins 9.0.0.0: 
+
+ 
+
+./imcl install com.ibm.websphere.PLG.v90_9.0.0.20160526_1854 com.ibm.java.jdk.v8_8.0.3000.20160623_1418 -repositories "/IHS9/WAS_SOFTWARES/PLUGINS/repository.config","/IHS9/WAS_SOFTWARES/java8/" -installationDirectory /IHS9/IBM/WebSphere/Plugins -sharedResourcesDirectory "/IHS9/IBM/IMShared" -acceptLicense -showProgress -log /IHS9/Plugins9Install.log 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+Check the version of IBM Plugins version: 
+
+ 
+
+Graphical user interface, text
+
+Description automatically generated 
+
+ 
+
+Text
+
+Description automatically generated 
+
+ 
+
+ 
+
+IBM Plugins 9.0.5.6 Fix pack installation: 
+
+ 
+
+Get the package name by executing the below command: 
+
+ 
+
+Graphical user interface, text
+
+Description automatically generated 
+
+ 
+
+Install IBM Plugins fixpack 9.0.5.6 
+
+ 
+
+./imcl install com.ibm.websphere.PLG.v90_9.0.5006.20201109_1605 -repositories /IHS9/WAS_SOFTWARES/Fixpack_WAS_IHS_9.0.5.6/IHS/repository.config -installationDirectory /IHS9/IBM/WebSphere/Plugins -sharedResourcesDirectory /IHS9/IBM/IMShared/ -acceptLicense -showProgress 
+
+ 
+
+        Text
+
+Description automatically generated 
+
+ 
+
+Check the version of IBM Plugins. 
+
+ 
+
+Graphical user interface, text, website
+
+Description automatically generated 
+
+ 
+
+Text
+
+Description automatically generated 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    
